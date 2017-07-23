@@ -1,0 +1,167 @@
+<div class="row wrapper border-bottom white-bg page-heading" xmlns="http://www.w3.org/1999/html">
+    <div class="col-lg-12">
+        <h2>用户 配置</h2>
+        <ol class="breadcrumb">
+            <li><a>角色管理</a></li>
+            <li class="active"><b>用户 配置</b></li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h3><span class="text-navy">用户 配置</span></h3>
+                </div>
+                <div class="ibox-content">
+                	#* 页面元素主体表单
+                		onsubmit：当表单将要被提交时触发 
+                		onsubmit="return false" ：防止表单自动提交用的 *#
+                    <form method="post" id="form" class="form-horizontal" onsubmit="return false">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="userName"
+                                       placeholder="请输入用户名【必填】">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码</label>
+
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="passWord"
+                                       placeholder="请输入密码【必填】">
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">部门名称</label>
+
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="deptName"
+                                       placeholder="请输入部门名称【必填】">
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">部门编码</label>
+
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="deptCode"
+                                       placeholder="请输入部门编码【必填】">
+                            </div>
+                        </div>
+                       
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-1 col-sm-offset-2" style="width:70px;">
+                                <button class="btn btn-primary" type="button" id="addBtn">
+                                    添加
+                                </button>
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-warning" type="reset" id="resetBtn">
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(document).on("click", "#addBtn", function () {
+            var params = {};
+            $.each($('#form').parent().find(".form-control"), function () {
+                var name = $(this).attr("name");
+                var value = $(this).val().trim();
+                params[name] = value;
+            });
+            // check form
+            if (!params['userName']) {
+                sweetAlert("请输入用户名", "请输入用户名【必填】", "error");
+                return;
+            }
+            if (!params['passWord']) {
+                sweetAlert("请输入密码", "请输入密码【必填】", "error");
+                return;
+            }
+            if (!params['deptCode']) {
+                sweetAlert("请输入部门编码", "请输入部门编码【必填】", "error");
+                return;
+            }
+            if (!params['deptName']) {
+                sweetAlert("请输入部门名称", "请输入部门名称【必填】", "error");
+                return;
+            }
+            var authority= getCookie("authority");
+            if(authority==false || authority==null){
+                //sweetAlert("请重新登录", "", "error");
+                alert("cookie失效,请重新登录");
+                window.location.href = "http://localhost:8081/login.htm";
+               // return  ;
+            }else if(authority==1){
+                sweetAlert("无新增权限", "", "error");
+                return  ;
+            }
+            $.ajax({
+                url: 'api/job-queue/insertuser',
+                type: 'POST',
+                dataType: 'json',
+                data: params,
+                success: function (json) {
+                    if (json && json.success) {
+                     	swal('添加成功');
+                        $("#resetBtn").trigger("click");
+                        $(".lts-cron-job-group").hide();
+                    } else {
+                        if (json) {
+                            swal(json['msg']);
+                        }
+                    }
+                }
+  				});
+            });
+		## 点击表达式“工具生成”时触发
+        $(document).on("click", "#cronGeneratorBtn", function () {
+            var cron = $("input[name='triggerExpression']").val().trim();
+            if (isCronExpress(cron)) {
+                $(window.frames["cronGeneratorIframe"]).contents().find("#cron").val(cron);
+                $(window.frames["cronGeneratorIframe"]).contents().find("#btnFan").click();
+            }
+            $("#cronGeneratorDialog").modal("show");
+        });
+
+        $('body').bind('Event_CronExpression_Generated', function (event, data) {
+            $("input[name='triggerExpression']").val(data['cron'].trim());
+            $("#cronGeneratorDialog").modal("hide");
+        });
+    });
+    
+</script>
+## 表达式生成工具的功能
+<script src="assets/js/cronValidate.js" type="text/javascript"></script>
+## 表达式生成工具的页面
+<div class="modal inmodal" id="cronGeneratorDialog" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="width: 600px;">
+        <div class="modal-content animated rubberBand">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">关闭</span></button>
+                <h2 class="modal-title">表达式生成工具</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <iframe id="cronGeneratorIframe" src="cron_generator_iframe.htm" width="540" height="450"
+                            style="border:0px;"
+                            scrolling="no"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,170 @@
+package com.depponlts.pojo;
+
+/**
+ * 任务中心 JOB参数实体类
+* @title: LtsJobentity 
+* @author： 李玉帅
+* @date： 2017-4-8 上午10:51:44
+ */
+@SuppressWarnings("serial")
+public class LtsJobentity implements java.io.Serializable{
+	private String  id;
+	private String triggerGroup;
+	private String triggerName;
+	private String jobGroup;
+	private String jobName;
+	private String description;
+	private Long triggerType;
+	private String triggerExpression;
+	private String jobClass;
+	private String jobData;
+	private Long active;
+	private String updateTime;
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+	/**
+	 * @return the triggerGroup
+	 */
+	public String getTriggerGroup() {
+		return triggerGroup;
+	}
+	/**
+	 * @param triggerGroup the triggerGroup to set
+	 */
+	public void setTriggerGroup(String triggerGroup) {
+		this.triggerGroup = triggerGroup;
+	}
+	/**
+	 * @return the triggerName
+	 */
+	public String getTriggerName() {
+		return triggerName;
+	}
+	/**
+	 * @param triggerName the triggerName to set
+	 */
+	public void setTriggerName(String triggerName) {
+		this.triggerName = triggerName;
+	}
+	/**
+	 * @return the jobGroup
+	 */
+	public String getJobGroup() {
+		return jobGroup;
+	}
+	/**
+	 * @param jobGroup the jobGroup to set
+	 */
+	public void setJobGroup(String jobGroup) {
+		this.jobGroup = jobGroup;
+	}
+	/**
+	 * @return the jobName
+	 */
+	public String getJobName() {
+		return jobName;
+	}
+	/**
+	 * @param jobName the jobName to set
+	 */
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	/**
+	 * @return the triggerType
+	 */
+	public Long getTriggerType() {
+		return triggerType;
+	}
+	/**
+	 * @param triggerType the triggerType to set
+	 */
+	public void setTriggerType(Long triggerType) {
+		this.triggerType = triggerType;
+	}
+	/**
+	 * @return the triggerExpression
+	 */
+	public String getTriggerExpression() {
+		return triggerExpression;
+	}
+	/**
+	 * @param triggerExpression the triggerExpression to set
+	 */
+	public void setTriggerExpression(String triggerExpression) {
+		this.triggerExpression = triggerExpression;
+	}
+	/**
+	 * @return the jobClass
+	 */
+	public String getJobClass() {
+		return jobClass;
+	}
+	/**
+	 * @param jobClass the jobClass to set
+	 */
+	public void setJobClass(String jobClass) {
+		this.jobClass = jobClass;
+	}
+	/**
+	 * @return the jobData
+	 */
+	public String getJobData() {
+		return jobData;
+	}
+	/**
+	 * @param jobData the jobData to set
+	 */
+	public void setJobData(String jobData) {
+		this.jobData = jobData;
+	}
+	/**
+	 * @return the active
+	 */
+	public Long getActive() {
+		return active;
+	}
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Long active) {
+		this.active = active;
+	}
+	/**
+	 * @return the updateTime
+	 */
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	/**
+	 * @param updateTime the updateTime to set
+	 */
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	
+	
+	
+}

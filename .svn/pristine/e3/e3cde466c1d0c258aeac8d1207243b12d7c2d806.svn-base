@@ -1,0 +1,65 @@
+package com.deppon.lts.service.impl;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.deppon.lts.api.ContentService;
+import com.deppon.lts.common.utils.JsonUtils;
+import com.deppon.lts.dao.CodisManager;
+import com.depponlts.pojo.LtsJobentity;
+//@Service(interfaceName="com.taotao.rest.api.ContentService",timeout=10000)
+public class ContentServiceImpl implements ContentService {
+//	@Autowired
+//	private CodisManager codisManager;
+//	@Value("${INDEX_CONTENT_REDIS_KEY}")
+//	private String INDEX_CONTENT_REDIS_KEY;
+	
+	 
+	/**
+	 * JOB参数SET进codis
+	 * <p>Title: getContenList</p>
+	 * <p>Description: </p>
+	 * @param categoryId
+	 * @return: List<LtsJobentity>
+	 */
+	@Override
+	public String insertCache(String key, LtsJobentity ltsJobentity) {
+		try {
+			String INDEX_CONTENT_REDIS_KEY = "INDEX_CONTENT_REDIS_KEY";
+			ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:META-INF/spring/applicationContext-codis.xml");
+			CodisManager codisManager = (CodisManager) ctx.getBean("codisManager");
+			String reString = codisManager.set(INDEX_CONTENT_REDIS_KEY, JsonUtils.objectToJson(ltsJobentity));
+			if(StringUtils.isNoneBlank(reString)){
+				return reString;
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+ 		return null;
+	}
+	/**
+	 * 获取缓存中的JOB参数
+	 * <p>Title: getContenList</p>
+	 * <p>Description: </p>
+	 * @param categoryId
+	 * @return: List<LtsJobentity>
+	 */
+	@Override
+	public String queryCache(String key) {
+		try {
+			ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:META-INF/spring/applicationContext-codis.xml");
+			CodisManager codisManager = (CodisManager) ctx.getBean("codisManager");
+			key="INDEX_CONTENT_REDIS_KEY";
+			String reString = codisManager.get(key );
+			if(StringUtils.isNoneBlank(reString)){
+				return reString;
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+ 		return null;
+	}
+	
+}

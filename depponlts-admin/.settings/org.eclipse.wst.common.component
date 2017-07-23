@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="depponlts-admin">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="depponlts-api-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-api/depponlts-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-pojo-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-pojo/depponlts-pojo">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-core-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-core/depponlts-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="depponlts-monitor-1.7.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/depponlts-monitor/depponlts-monitor">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="depponlts-admin"/>
+        <property name="java-output-path" value="/depponlts-admin/target/classes"/>
+    </wb-module>
+</project-modules>

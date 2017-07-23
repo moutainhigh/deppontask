@@ -1,0 +1,62 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top  grey-bg " role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary "
+               href="#"><i class="fa fa-bars"></i> </a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+        	#*
+            <li class="welcome-message">
+                <span class="m-r-sm text-muted">
+                    <a href="https://github.com/ltsopensource/light-task-scheduler" target="_blank"><span class="label label-info"><i class="fa fa-github"></i> github</span></a>
+                    <a href="http://git.oschina.net/hugui/light-task-scheduler" target="_blank"><span class="label label-info"><i class="fa fa-users"></i> oschina</span></a>
+                </span>
+            </li>
+            *#
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown"
+                   href="#">
+                    <img class="img-circle" style="width:30px;" src="${contextPath}/assets/img/user.png">
+                    <span id="name"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li  > 
+                      <a onclick="exit()" href="${contextPath}/login.htm"> 退出</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script>
+	function exit(){
+           var date = new Date();
+           date.setTime(date.getTime()-( 1000*60*60));
+           setCookie("userName",obj.userEntity.userName,date.toGMTString());
+           setCookie("deptName",obj.userEntity.deptName,date.toGMTString());
+           setCookie("deptCode",obj.userEntity.deptCode,date.toGMTString());
+           setCookie("authority",obj.userEntity.authority,date.toGMTString());
+           window.location.href="http://localhost:8081/index.htm";
+	}
+
+	 var name= getCookie("userName");
+	 $("#name").text(name);
+	
+	function getCookie(cName){
+	    var cookieString = decodeURI(document.cookie);
+	    var cookieArray = cookieString.split("; ");
+	    console.log(cookieArray.length);
+	    for(var i = 0; i < cookieArray.length; i++){
+	        var cookieNum = cookieArray[i].split("=");
+	        console.log(cookieNum.toString());
+	        var cookieName = cookieNum[0];
+	        var cookieValue = cookieNum[1];
+	        if(cookieName == cName){
+	            return cookieValue;
+	            }
+	        }
+    return false;
+}
+</script>
+ 
